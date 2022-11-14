@@ -1,0 +1,14 @@
+fleur & graine = phanérograme
+phanérograme & graine_nue = sapin
+phanérograme & 1-cotylédone = monocotylédone
+phanérograme & 2-cotylédone = dicotylédone
+monocotylédone & rhizome = muguet
+dicotylédone = anémone
+monocotylédone & ~rhizome = lilas
+feuille & fleur = cryptogame
+cryptogame & ~racine = mousse
+cryptogame & racine = fougère
+~feuille & plante = thallophyte
+thallophyte & chlorophylle = algue
+thallophyte & ~chlorophylle = champignon
+~feuille & ~fleur & ~plante = colibacille
