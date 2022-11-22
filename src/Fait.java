@@ -6,10 +6,6 @@ public class Fait {
 	private Integer val;
 	private String symbole;
 
-	public String getSymbole() {
-		return symbole;
-	}
-
 	public Fait(String element, boolean etat) {
 		this.element = element;
 		this.etat = etat;
@@ -45,6 +41,10 @@ public class Fait {
 
 	public Integer getVal() {
 		return val;
+	}
+
+	public String getSymbole() {
+		return symbole;
 	}
 
 	

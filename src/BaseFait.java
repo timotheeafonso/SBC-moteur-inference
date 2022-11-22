@@ -59,7 +59,13 @@ public class BaseFait {
 		    	if(strFait.charAt(0)=='~') {
 		    		strFait=strFait.substring(1);
 		    		f = new Fait(strFait,false);
-		    	}else {
+		    	}
+				else if(strFait.contains("==")){
+					String element = (strFait.split("=="))[0];
+					int valeur = Integer.parseInt((strFait.split("=="))[1]);
+					f = new Fait(element, valeur, "==");
+				}
+				else {
 		    		f = new Fait(strFait,true);
 		    	}
 			    this.ajouterFaitInitiaux(f);	
@@ -89,23 +95,23 @@ public class BaseFait {
 					if(f.isEtat()==fait.isEtat() && f.getElement().equals(fait.getElement())) {
 						exist=true;
 					}
-				}else{
+				}else{					
 					if(f.getElement().equals(fait.getElement())) {
-						switch(f.getSymbole()){
+						switch(fait.getSymbole()){
 							case ">":
-								exist=fait.getVal()>f.getVal();
+								exist=f.getVal()>fait.getVal();
 								break;
 							case "<":
-								exist=fait.getVal()<f.getVal();
+								exist=f.getVal()<fait.getVal();
 								break;
-							case "==":
-								exist=fait.getVal()==f.getVal();
+							case "==":							
+								exist=f.getVal()==fait.getVal();
 								break;
 							case "<=":
-								exist=fait.getVal()<=f.getVal();
+								exist=f.getVal()<=fait.getVal();
 								break;
 							case ">=":
-								exist=fait.getVal()>=f.getVal();
+								exist=f.getVal()>=fait.getVal();
 								break;
 						}
 					}
