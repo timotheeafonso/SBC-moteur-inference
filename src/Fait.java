@@ -4,15 +4,17 @@ public class Fait {
 	String element;
 	boolean etat;
 	Integer val;
+	String symbole;
 
 	public Fait(String element, boolean etat) {
 		this.element = element;
 		this.etat = etat;
 	}
 
-	public Fait(String element, int val) {
+	public Fait(String element, int val, String symbole) {
 		this.element = element;
 		this.val = val;
+		this.symbole = symbole;
 	}
 
 	@Override
@@ -23,7 +25,7 @@ public class Fait {
 				pr+="non ";
 			}
 		}else{
-			pr+="="+val;
+			pr+= symbole+val;
 		}
 		pr += element;
 		return pr;

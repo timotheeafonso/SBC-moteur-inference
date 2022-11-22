@@ -43,7 +43,33 @@ public class BaseRegle {
 		    	if(pr.charAt(0)=='~') {
 		    		pr=pr.substring(1);
 		    		f = new Fait(pr,false);
-		    	}else {
+		    	}
+				else if(pr.contains(">=")){
+					String element = (pr.split(">="))[0];
+					int valeur = Integer.parseInt((pr.split(">="))[1]);
+					f = new Fait(element, valeur, ">=");
+				}
+				else if(pr.contains("<=")){
+					String element = (pr.split("<= "))[0];
+					int valeur = Integer.parseInt((pr.split("<="))[1]);
+					f = new Fait(element, valeur, "<=");
+				}
+				else if(pr.contains(">")){
+					String element = (pr.split(">"))[0];
+					int valeur = Integer.parseInt((pr.split(">"))[1]);
+					f = new Fait(element, valeur, ">");
+				}
+				else if(pr.contains("<")){
+					String element = (pr.split("<"))[0];
+					int valeur = Integer.parseInt((pr.split("<"))[1]);
+					f = new Fait(element, valeur, "<");
+				}
+				else if(pr.contains("==")){
+					String element = (pr.split("=="))[0];
+					int valeur = Integer.parseInt((pr.split("=="))[1]);
+					f = new Fait(element, valeur, "==");
+				}
+				else {
 		    		f = new Fait(pr,true);
 		    	}
 		    	listPremisses.add(f);	
