@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class BaseRegle {
-	ArrayList<Regle> regles;
+	private ArrayList<Regle> regles;
 
 	public BaseRegle() {
 		this.regles = new ArrayList<Regle>();
@@ -26,6 +26,10 @@ public class BaseRegle {
 	}
 	*/
 	
+	public ArrayList<Regle> getRegles() {
+		return regles;
+	}
+
 	public void generer(String path) throws Exception {
 		FileReader input = new FileReader(path);
 		BufferedReader bufRead = new BufferedReader(input);

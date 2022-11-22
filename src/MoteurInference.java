@@ -10,7 +10,7 @@ public class MoteurInference {
 		
 		while(inf) {
 			inf=false;
-			for(Regle r : br.regles) {
+			for(Regle r : br.getRegles()) {
 				boolean regleSupprimer=false;
 				for(Regle re : explication) {
 					if(re.equals(r)) {
@@ -40,7 +40,7 @@ public class MoteurInference {
 		
 		String str="\n========== Base de Faits Final ===============================";
 		
-		for (Fait f : bf.faitsInitiaux) {
+		for (Fait f : bf.getFaitsInitiaux()) {
 			str+="\n"+f.toString();
 		}
 		str+="\n==============================================================";

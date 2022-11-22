@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class BaseFait {
-	ArrayList<Fait> faitsInitiaux;
+	private ArrayList<Fait> faitsInitiaux;
 	//ArrayList<Fait> faits;
 	
 	public BaseFait() {
@@ -83,11 +83,34 @@ public class BaseFait {
 	
 	public boolean existFaitInitiaux(Fait fait) {
 		boolean exist=false;
-		for(Fait f : faitsInitiaux) {
-			if(f.etat==fait.etat && f.element.equals(fait.element)) {
-				exist=true;
+		
+			for(Fait f : faitsInitiaux) {
+				if(fait.getVal()==null){
+					if(f.isEtat()==fait.isEtat() && f.getElement().equals(fait.getElement())) {
+						exist=true;
+					}
+				}else{
+					if(f.getElement().equals(fait.getElement())) {
+						switch(f.getSymbole()){
+							case ">":
+								exist=fait.getVal()>f.getVal();
+								break;
+							case "<":
+								exist=fait.getVal()<f.getVal();
+								break;
+							case "==":
+								exist=fait.getVal()==f.getVal();
+								break;
+							case "<=":
+								exist=fait.getVal()<=f.getVal();
+								break;
+							case ">=":
+								exist=fait.getVal()>=f.getVal();
+								break;
+						}
+					}
+				}
 			}
-		}
 		return exist;
 	}
 	
@@ -113,6 +136,10 @@ public class BaseFait {
 		str+="\n==============================================================";
 		*/
 		return str;
+	}
+
+	public ArrayList<Fait> getFaitsInitiaux() {
+		return faitsInitiaux;
 	}
 	
 	

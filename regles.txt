@@ -1,4 +1,4 @@
-fleur>2 & graine==3 = phanérograme
+fleur & graine = phanérograme
 phanérograme & graine_nue = sapin
 phanérograme & 1-cotylédone = monocotylédone
 phanérograme & 2-cotylédone = dicotylédone

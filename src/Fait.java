@@ -1,10 +1,14 @@
 
 public class Fait {
 	
-	String element;
-	boolean etat;
-	Integer val;
-	String symbole;
+	private String element;
+	private boolean etat;
+	private Integer val;
+	private String symbole;
+
+	public String getSymbole() {
+		return symbole;
+	}
 
 	public Fait(String element, boolean etat) {
 		this.element = element;
@@ -30,6 +34,20 @@ public class Fait {
 		pr += element;
 		return pr;
 	}
+
+	public String getElement() {
+		return element;
+	}
+
+	public boolean isEtat() {
+		return etat;
+	}
+
+	public Integer getVal() {
+		return val;
+	}
+
+	
 	
 	
 }
