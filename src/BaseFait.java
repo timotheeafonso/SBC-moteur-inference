@@ -73,7 +73,7 @@ public class BaseFait {
 		}
 	}
 	
-	/*
+	
 	public void genererFaits(String path) throws Exception {
 		FileReader input = new FileReader(path);
 		BufferedReader bufRead = new BufferedReader(input);
@@ -82,10 +82,9 @@ public class BaseFait {
 		while ( (myLine = bufRead.readLine()) != null)
 		{    
 		    Fait f = new Fait(myLine,true);
-		    this.ajouterFait(f);	
+		    this.ajouterFaitInitiaux(f);	
 		}
 	}
-	*/
 	
 	public boolean existFaitInitiaux(Fait fait) {
 		boolean exist=false;
