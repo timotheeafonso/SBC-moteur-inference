@@ -15,7 +15,7 @@ public class BaseRegle {
 			return false;
 		}
 	}
-	
+
 	/*
 	public boolean supprimer(Regle regle) {
 		if(regles.contains(regle)) {
@@ -37,6 +37,12 @@ public class BaseRegle {
 
 		while ( (myLine = bufRead.readLine()) != null)
 		{    
+			
+			int paquet=0;
+			if(Character.isDigit(myLine.charAt(0))){
+				paquet = Character.getNumericValue(myLine.charAt(0));
+				myLine=myLine.substring(2);
+			}
 		    String[] array1 = myLine.split(" = ");
 		    String[] premisses = array1[0].split(" & ");
 		    String[] consequences = array1[1].split(" & ");
@@ -92,10 +98,14 @@ public class BaseRegle {
 		    }
 		    
 		    Regle r = new Regle(listPremisses,listConsequences);
+			r.setPaquet(paquet);
 		    this.ajouter(r);
+
 		}
 
 	}
+
+
 
 	@Override
 	public String toString() {

@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class MoteurInference {
 	
@@ -47,9 +48,15 @@ public class MoteurInference {
 		System.out.println(str);
 	}
 
+	public static void chainageArriere(BaseRegle br,BaseFait but) {
+		
+	}
+
+
 	public static void main(String[] args) throws Exception {
 		BaseRegle br = new BaseRegle();
 		br.generer("regles.txt");
+		Collections.sort(br.getRegles());
 		System.out.println(br.toString());
 		BaseFait bf = new BaseFait();
 		//bf.genererFaits("faits.txt");
