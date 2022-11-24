@@ -48,10 +48,48 @@ public class MoteurInference {
 		System.out.println(str);
 	}
 
-	public static void chainageArriere(BaseRegle br,BaseFait but) {
+	/*public static boolean chainageArriere(BaseRegle br, Fait but, BaseFait bf, BaseFait demandables){
 		
+		boolean dem = false;
+
+		//1er cas
+		if(bf.getFaitsInitiaux().contains(but)){
+			dem = true;
+		}
+		
+		//2e cas
+		if( //Si b déductible à partir de BR U BF){
+			for(Regle r : br.getRegles()){
+				while(dem == false){
+					//dem = verif(br, Antecedent(r), bf, demandables)
+				}
+			}
+		}
+		
+		//3e cas
+		if(dem==false && demandables.getFaitsInitiaux().contains(but)){
+			//Poser la question : b? 
+			//dem = reponse(b)
+		}
+
+		if(dem){
+			bf.ajouterFaitInitiaux(but);
+		}
+
+		return dem;
 	}
 
+	public boolean verif(BaseRegle br, BaseFait buts, BaseFait bf, BaseFait demandables){
+		boolean ver = true;
+
+		for(Fait b : buts.getFaitsInitiaux()){
+			while(ver){
+				ver = chainageArriere(br, b, bf, demandables);
+			}
+		}
+
+		return ver;
+	}*/
 
 	public static void main(String[] args) throws Exception {
 		BaseRegle br = new BaseRegle();
@@ -63,6 +101,13 @@ public class MoteurInference {
 		bf.genererFaitsInitiaux("faitsInit.txt");
 		System.out.println(bf.toString());
 		chainageAvant(br,bf);
+
+
+		/*BaseFait demandables = new BaseFait();
+		demandables.genererFaits("faits.txt");
+		Fait but = new Fait("lilas", true);
+
+		chainageArriere(br, but, new BaseFait(), demandables);*/
 		
 	}
 
