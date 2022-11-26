@@ -1,10 +1,15 @@
 import java.util.ArrayList;
 import java.util.Collections;
 
+import javax.swing.plaf.basic.BasicEditorPaneUI;
+
 public class MoteurInference {
 	
-	public static void chainageAvant(BaseRegle br,BaseFait bf) {
+	public static void chainageAvant(BaseRegle br,BaseFait bf,boolean paquet) {
 		ArrayList<Regle> explication = new ArrayList<Regle>();
+		if(paquet){
+			Collections.sort(br.getRegles());
+		}
 
 		int nbInf = 0;
 		boolean inf = true;
@@ -21,15 +26,14 @@ public class MoteurInference {
 				if(!regleSupprimer) {
 					boolean dec = true;
 					
-					for (Fait antecedent : r.premisses) {
+					for (Fait antecedent : r.getPremisses()) {
 						if(!bf.existFaitInitiaux(antecedent)) {
 							dec=false;
 						}
 					}			
 					if(dec) {
-						for(Fait consequence : r.consequences) {
+						for(Fait consequence : r.getConsequences()) {
 							bf.ajouterFaitInitiaux(consequence);
-							//br.supprimer(r);
 							inf=true;
 							nbInf++;
 							explication.add(r);
@@ -46,68 +50,84 @@ public class MoteurInference {
 		}
 		str+="\n==============================================================";
 		System.out.println(str);
+
+		for(Regle r: explication){
+			System.out.println(r.toString());
+		}
 	}
 
-	/*public static boolean chainageArriere(BaseRegle br, Fait but, BaseFait bf, BaseFait demandables){
-		
+	public static boolean chainageArriere(BaseRegle br, Fait but, BaseFait bf, BaseFait demandables , boolean paquet){
+		System.out.println("Demo : "+but.toString());
 		boolean dem = false;
-
-		//1er cas
-		if(bf.getFaitsInitiaux().contains(but)){
-			dem = true;
+		if(paquet){
+			Collections.sort(br.getRegles());
 		}
 		
+		//1er cas
+		if(bf.existFaitInitiaux(but)){
+			dem = true;
+		}
+
 		//2e cas
-		if( //Si b déductible à partir de BR U BF){
+		int i=0;
+		while(dem==false && i<=br.getRegles().size()){
+			i++;
 			for(Regle r : br.getRegles()){
-				while(dem == false){
-					//dem = verif(br, Antecedent(r), bf, demandables)
+				if(r.existFait(r.getConsequences(), but)){
+					dem = verif(br, r.getPremisses(), bf, demandables);
 				}
 			}
 		}
-		
+
 		//3e cas
-		if(dem==false && demandables.getFaitsInitiaux().contains(but)){
-			//Poser la question : b? 
-			//dem = reponse(b)
+		if(!dem){
+			for (Regle r : br.getRegles()){
+				if(!r.existFait(r.getConsequences(),but)){
+							dem=true;
+				}
+			}
 		}
 
 		if(dem){
 			bf.ajouterFaitInitiaux(but);
 		}
-
 		return dem;
 	}
 
-	public boolean verif(BaseRegle br, BaseFait buts, BaseFait bf, BaseFait demandables){
+	public static boolean verif(BaseRegle br, ArrayList<Fait> buts, BaseFait bf, BaseFait demandables){
 		boolean ver = true;
-
-		for(Fait b : buts.getFaitsInitiaux()){
-			while(ver){
-				ver = chainageArriere(br, b, bf, demandables);
-			}
+		System.out.print("Verif : ");
+		for(Fait b : buts){
+			System.out.print(b.toString()+" ");
 		}
+		System.out.print("\n");
 
+		for(Fait b : buts){
+			ver = chainageArriere(br, b, bf, demandables,false);
+		}
 		return ver;
-	}*/
+	}
 
 	public static void main(String[] args) throws Exception {
 		BaseRegle br = new BaseRegle();
 		br.generer("regles.txt");
-		Collections.sort(br.getRegles());
 		System.out.println(br.toString());
 		BaseFait bf = new BaseFait();
-		//bf.genererFaits("faits.txt");
 		bf.genererFaitsInitiaux("faitsInit.txt");
 		System.out.println(bf.toString());
-		chainageAvant(br,bf);
+		//chainageAvant(br,bf,true);
 
-
-		/*BaseFait demandables = new BaseFait();
+		
+		 
+		BaseFait demandables = new BaseFait();
 		demandables.genererFaits("faits.txt");
-		Fait but = new Fait("lilas", true);
-
-		chainageArriere(br, but, new BaseFait(), demandables);*/
+		Fait but = new Fait("muguet", true);
+		String str="\n========================= But ===============================\n";
+		str+=but.toString();
+		str+="\n==============================================================";
+		System.out.println(str);
+		boolean trouver=chainageArriere(br, but, new BaseFait(), demandables,true);
+		System.out.println(trouver);
 		
 	}
 

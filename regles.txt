@@ -1,4 +1,3 @@
-0 fleur & graine>2 = phanérograme
 1 phanérograme & graine_nue = sapin
 1 phanérograme & 1-cotylédone = monocotylédone
 0 phanérograme & 2-cotylédone = dicotylédone
@@ -9,6 +8,7 @@
 3 cryptogame & ~racine = mousse
 2 cryptogame & racine = fougère
 2 ~feuille & plante = thallophyte
+0 fleur & graine = phanérograme
 0 thallophyte & chlorophylle = algue
 0 thallophyte & ~chlorophylle = champignon
 1 ~feuille & ~fleur & ~plante = colibacille

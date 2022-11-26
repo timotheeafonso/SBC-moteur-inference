@@ -2,9 +2,10 @@ import java.util.ArrayList;
 
 public class Regle implements Comparable{
 
-	ArrayList<Fait> premisses;
-	ArrayList<Fait> consequences;
-	int paquet;
+	private int id;
+	private ArrayList<Fait> premisses;
+	private ArrayList<Fait> consequences;
+	private int paquet;
 
 	public Regle(ArrayList<Fait> premisses, ArrayList<Fait> consequences) {
 		this.premisses = premisses;
@@ -14,6 +15,19 @@ public class Regle implements Comparable{
 
 	public void setPaquet(int p){
 		paquet=p;
+	}
+	
+
+	public ArrayList<Fait> getPremisses() {
+		return premisses;
+	}
+
+	public ArrayList<Fait> getConsequences() {
+		return consequences;
+	}
+
+	public int getPaquet() {
+		return paquet;
 	}
 
 	@Override
@@ -38,13 +52,45 @@ public class Regle implements Comparable{
 		return pr;
 	}
 
+	public boolean existFait(ArrayList<Fait> Listfaits,Fait fait) {
+		boolean exist=false;
+		
+			for(Fait f : Listfaits) {
+				if(fait.getVal()==null){
+					if(f.isEtat()==fait.isEtat() && f.getElement().equals(fait.getElement())) {
+						exist=true;
+					}
+				}else{					
+					if(f.getElement().equals(fait.getElement())) {
+						switch(fait.getSymbole()){
+							case ">":
+								exist=f.getVal()>fait.getVal();
+								break;
+							case "<":
+								exist=f.getVal()<fait.getVal();
+								break;
+							case "==":							
+								exist=f.getVal()==fait.getVal();
+								break;
+							case "<=":
+								exist=f.getVal()<=fait.getVal();
+								break;
+							case ">=":
+								exist=f.getVal()>=fait.getVal();
+								break;
+						}
+					}
+				}
+			}
+		return exist;
+	}
+
 	@Override
 	public int compareTo(Object o) {
 		if(o instanceof Regle){
 			int p = ((Regle)o).paquet;
-			return this.paquet-p; 
+			return p-this.paquet; 
 		}
-		// TODO Auto-generated method stub
 		return 0;
 	}
 	

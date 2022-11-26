@@ -24,10 +24,10 @@ public class Fait {
 			if(!etat) {
 				pr+="non ";
 			}
+			pr += element;
 		}else{
-			pr+= symbole+val;
+			pr += element+symbole+val;
 		}
-		pr += element;
 		return pr;
 	}
 

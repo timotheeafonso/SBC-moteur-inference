@@ -30,7 +30,7 @@ public class BaseFait {
 	*/
 	
 	public boolean ajouterFaitInitiaux(Fait fait) {
-		if(!faitsInitiaux.contains(fait)) {
+		if(!existFaitInitiaux(fait)) {
 			return faitsInitiaux.add(fait);
 		}else {
 			return false;
