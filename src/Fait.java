@@ -46,8 +46,5 @@ public class Fait {
 	public String getSymbole() {
 		return symbole;
 	}
-
-	
-	
 	
 }

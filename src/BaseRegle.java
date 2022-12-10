@@ -60,7 +60,7 @@ public class BaseRegle {
 					f = new Fait(element, valeur, ">=");
 				}
 				else if(pr.contains("<=")){
-					String element = (pr.split("<= "))[0];
+					String element = (pr.split("<="))[0];
 					int valeur = Integer.parseInt((pr.split("<="))[1]);
 					f = new Fait(element, valeur, "<=");
 				}
@@ -88,10 +88,36 @@ public class BaseRegle {
 		    ArrayList<Fait> listConsequences=new ArrayList<Fait>();
 		    for(String cs: consequences) {
 		    	Fait f;
-		    	if(cs.charAt(0)=='~') {
+				if(cs.charAt(0)=='~') {
 		    		cs=cs.substring(1);
 		    		f = new Fait(cs,false);
-		    	}else {
+		    	}
+				else if(cs.contains(">=")){
+					String element = (cs.split(">="))[0];
+					int valeur = Integer.parseInt((cs.split(">="))[1]);
+					f = new Fait(element, valeur, ">=");
+				}
+				else if(cs.contains("<=")){
+					String element = (cs.split("<="))[0];
+					int valeur = Integer.parseInt((cs.split("<="))[1]);
+					f = new Fait(element, valeur, "<=");
+				}
+				else if(cs.contains(">")){
+					String element = (cs.split(">"))[0];
+					int valeur = Integer.parseInt((cs.split(">"))[1]);
+					f = new Fait(element, valeur, ">");
+				}
+				else if(cs.contains("<")){
+					String element = (cs.split("<"))[0];
+					int valeur = Integer.parseInt((cs.split("<"))[1]);
+					f = new Fait(element, valeur, "<");
+				}
+				else if(cs.contains("==")){
+					String element = (cs.split("=="))[0];
+					int valeur = Integer.parseInt((cs.split("=="))[1]);
+					f = new Fait(element, valeur, "==");
+				}
+				else {
 		    		f = new Fait(cs,true);
 		    	}
 		    	listConsequences.add(f);	

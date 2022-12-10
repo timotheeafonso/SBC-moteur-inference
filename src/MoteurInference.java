@@ -56,7 +56,7 @@ public class MoteurInference {
 		}
 	}
 
-	public static boolean chainageArriere(BaseRegle br, Fait but, BaseFait bf, BaseFait demandables , boolean paquet){
+	public static boolean chainageArriere(BaseRegle br, Fait but, BaseFait bf , boolean paquet,Fait butInit){
 		System.out.println("Demo : "+but.toString());
 		boolean dem = false;
 		if(paquet){
@@ -74,7 +74,7 @@ public class MoteurInference {
 			i++;
 			for(Regle r : br.getRegles()){
 				if(r.existFait(r.getConsequences(), but)){
-					dem = verif(br, r.getPremisses(), bf, demandables);
+					dem = verif(br, r.getPremisses(), bf,butInit);
 				}
 			}
 		}
@@ -91,10 +91,13 @@ public class MoteurInference {
 		if(dem){
 			bf.ajouterFaitInitiaux(but);
 		}
+		if(bf.existFaitInitiaux(butInit))
+			System.out.println("\nRésultat :\n"+dem+bf.toString());
+		
 		return dem;
 	}
 
-	public static boolean verif(BaseRegle br, ArrayList<Fait> buts, BaseFait bf, BaseFait demandables){
+	public static boolean verif(BaseRegle br, ArrayList<Fait> buts, BaseFait bf,Fait butInit){
 		boolean ver = true;
 		System.out.print("Verif : ");
 		for(Fait b : buts){
@@ -103,31 +106,35 @@ public class MoteurInference {
 		System.out.print("\n");
 
 		for(Fait b : buts){
-			ver = chainageArriere(br, b, bf, demandables,false);
+			ver = chainageArriere(br, b, bf,false,butInit);
 		}
 		return ver;
 	}
 
+
 	public static void main(String[] args) throws Exception {
+		
+		/* 
 		BaseRegle br = new BaseRegle();
 		br.generer("regles.txt");
 		System.out.println(br.toString());
 		BaseFait bf = new BaseFait();
 		bf.genererFaitsInitiaux("faitsInit.txt");
 		System.out.println(bf.toString());
-		//chainageAvant(br,bf,true);
+		chainageAvant(br,bf,true);
+		*/
 
-		
-		 
-		BaseFait demandables = new BaseFait();
-		demandables.genererFaits("faits.txt");
-		Fait but = new Fait("muguet", true);
+			 
+		BaseRegle br = new BaseRegle();
+		br.generer("regles.txt");
+		System.out.println(br.toString());
+		Fait but = new Fait("B", true);
 		String str="\n========================= But ===============================\n";
 		str+=but.toString();
 		str+="\n==============================================================";
 		System.out.println(str);
-		boolean trouver=chainageArriere(br, but, new BaseFait(), demandables,true);
-		System.out.println(trouver);
+		chainageArriere(br, but, new BaseFait(),true,but);		
+		
 		
 	}
 
