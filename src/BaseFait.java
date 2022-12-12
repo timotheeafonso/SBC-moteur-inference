@@ -301,10 +301,6 @@ public class BaseFait {
 							}	
 							break;
 					}
-			}else{
-				if(f.getElement().equals(fait.getElement())){
-					System.out.println("erreur: incohérence entre faits initiaux et base de règle\n-deux type de valeur différent pour le fait "+f.getElement()+" (booleen/variable)");
-				}
 			}
 		}
 	return exist;
