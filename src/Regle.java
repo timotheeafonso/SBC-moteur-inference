@@ -33,7 +33,7 @@ public class Regle implements Comparable{
 	@Override
 	public String toString() {
 		int i=0;
-		String pr=Integer.toString(paquet)+" ";
+		String pr="("+Integer.toString(paquet)+") ";
 		for(Fait premisse : premisses) {
 			if(i>0) {
 				pr+= " et ";
@@ -63,7 +63,7 @@ public class Regle implements Comparable{
 					switch(fait.getSymbole()){
 						case ">":
 							if(f.getSymbole()==">"){
-								if(f.getVal()>fait.getVal()){
+								if(f.getVal()>=fait.getVal()){
 									exist=true;
 								}else{
 									System.out.println("Sous condition que "+f.getElement()+" > "+fait.getVal());

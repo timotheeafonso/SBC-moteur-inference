@@ -136,7 +136,7 @@ public class BaseFait {
 					switch(fait.getSymbole()){
 						case ">":
 							if(f.getSymbole()==">"){
-								if(f.getVal()>fait.getVal()){
+								if(f.getVal()>=fait.getVal()){
 									exist=true;
 								}else{
 									System.out.println("Sous condition que "+f.getElement()+" > "+fait.getVal());

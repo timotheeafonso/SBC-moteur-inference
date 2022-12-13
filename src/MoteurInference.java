@@ -13,6 +13,7 @@ public class MoteurInference {
 		int nbInf = 0;
 		boolean inf = true;
 		
+		System.out.println("\n========================= Chainage avant ===============================\n");
 		while(inf) {
 			inf=false;
 			for(Regle r : br.getRegles()) {
@@ -32,6 +33,29 @@ public class MoteurInference {
 					}			
 					if(dec) {
 						for(Fait consequence : r.getConsequences()) {
+							System.out.println("Regle apliquable: "+r.toString());
+							boolean conflit=false;
+							// Gestion conflit
+							for(Regle rexplique : explication){
+								for(Fait f : rexplique.getConsequences()){
+									if(f.getElement().equals(consequence.getElement())){
+										System.out.println("Conflit pour "+f.getElement());
+										conflit=true;
+										if(r.getPremisses().size()>rexplique.getPremisses().size()){
+											bf.supprimerFaitInitiaux(f);
+											bf.ajouterFaitInitiaux(consequence);
+											System.out.println(consequence.toString()+" possède plus de prémisse, on applique donc: "+r.toString());
+										}else if(r.getPremisses().size()==rexplique.getPremisses().size()){
+											bf.supprimerFaitInitiaux(f);
+											bf.ajouterFaitInitiaux(consequence);
+											System.out.println(consequence.toString()+" possède autant de prémisse que "+ f.toString()+", On applique la regle avec les faits déduit les plus récents: "+r.toString());
+										}else{
+											System.out.println(f.toString()+" possède plus de prémisse, on applique donc: "+rexplique.toString());
+										}
+									}
+								}
+							}	
+							if(!conflit)
 							bf.ajouterFaitInitiaux(consequence);
 							inf=true;
 							nbInf++;
@@ -41,7 +65,8 @@ public class MoteurInference {
 				}
 			}
 		}
-		
+		System.out.println("==============================================================");
+
 		String str="\n========== Base de Faits Final ===============================";
 		
 		for (Fait f : bf.getFaitsInitiaux()) {
@@ -49,14 +74,10 @@ public class MoteurInference {
 		}
 		str+="\n==============================================================";
 		System.out.println(str);
-
-		for(Regle r: explication){
-			System.out.println(r.toString());
-		}
 	}
 
 	public static boolean chainageArriere(BaseRegle br, Fait but, BaseFait bf , boolean paquet,Fait butInit){
-		System.out.println("Demo : "+but.toString());
+		System.out.println("On démontre le but : "+but.toString());
 		boolean dem = false;
 		if(paquet){
 			Collections.sort(br.getRegles());
@@ -73,6 +94,7 @@ public class MoteurInference {
 			i++;
 			for(Regle r : br.getRegles()){
 				if(r.existFait(r.getConsequences(), but)){
+					System.out.println("Regle utilisé: "+r.toString());
 					dem = verif(br, r.getPremisses(), bf,butInit);
 				}
 			}
@@ -90,19 +112,26 @@ public class MoteurInference {
 		if(dem){
 			bf.ajouterFaitInitiaux(but);
 		}
-		if(bf.existFaitInitiaux(butInit))
-			System.out.println("\nRésultat :\n"+dem+bf.toString());
-		
+		if(bf.existFaitInitiaux(butInit)){
+			System.out.println("\n==============================================================");
+			System.out.println(bf.toString());
+		}
+
 		return dem;
 	}
 
 	public static boolean verif(BaseRegle br, ArrayList<Fait> buts, BaseFait bf,Fait butInit){
 		boolean ver = true;
-		System.out.print("Verif : ");
+		System.out.print("Il faut vérifier : ");
+		int i=0;
 		for(Fait b : buts){
 			System.out.print(b.toString()+" ");
+			if(i<buts.size()-1){
+				System.out.print("et ");
+			}
+			i++;
 		}
-		System.out.print("\n");
+		System.out.println("\n");
 
 		for(Fait b : buts){
 			ver = chainageArriere(br, b, bf,false,butInit);
@@ -172,33 +201,44 @@ public class MoteurInference {
 		return coherencebf && coherencebr;
 	}
 
-	public static void main(String[] args) throws Exception {
-		
-		
-		BaseRegle br = new BaseRegle();
-		br.generer("regles.txt");
+	public static void execChainageAvant(BaseFait bf,BaseRegle br,boolean paquet){
 		System.out.println(br.toString());
-		BaseFait bf = new BaseFait();
-		bf.genererFaitsInitiaux("faitsInit.txt");
 		System.out.println(bf.toString());
 		checkCoherence(bf, br);
-		chainageAvant(br,bf,true);
-		
-		/* 
-		BaseFait bf = new BaseFait();
-		bf.genererFaitsInitiaux("faitsInit.txt");
-		BaseRegle br = new BaseRegle();
-		br.generer("regles.txt");
+		chainageAvant(br,bf,paquet);
+	}
+
+	public static void execChainageArriere(BaseFait bf,BaseRegle br,Fait but,boolean paquet){
 		System.out.println(br.toString());
-		Fait but = new Fait("B", true);
 		String str="\n========================= But ===============================\n";
 		str+=but.toString();
 		str+="\n==============================================================";
 		System.out.println(str);
 		checkCoherence(bf, br);
-		//chainageArriere(br, but, new BaseFait(),true,but);		
-		*/
+		System.out.println("\n========================= Chainage arriere ===============================\n");
+		chainageArriere(br, but, new BaseFait(),paquet,but);	
+	}
+
+	public static void main(String[] args) throws Exception {
 		
+		BaseFait bf = new BaseFait();
+		try {
+			bf.genererFaitsInitiaux("faitsInit.txt");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		BaseRegle br = new BaseRegle();
+		try {
+			br.generer("regles.txt");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		execChainageAvant(bf,br,true);
+
+		Fait but = new Fait("muguet", true);
+
+		//execChainageArriere(new BaseFait(),br,but,true);
 	}
 
 }
