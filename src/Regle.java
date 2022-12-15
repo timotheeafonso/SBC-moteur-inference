@@ -48,6 +48,7 @@ public class Regle implements Comparable{
 				pr+= " et ";
 			}
 			pr+=consequence.toString();
+			i++;
 		}
 		return pr;
 	}
@@ -55,6 +56,7 @@ public class Regle implements Comparable{
 	public boolean existFait(ArrayList<Fait> Listfaits,Fait f) {
 		boolean exist=false;
 			for(Fait fait : Listfaits) {
+				if(f.getElement().equals(fait.getElement())){
 				if(fait.getVal()==null && f.getVal()==null){
 					if(f.isEtat()==fait.isEtat() && f.getElement().equals(fait.getElement())) {
 						exist=true;
@@ -156,8 +158,8 @@ public class Regle implements Comparable{
 								if(exist=f.getVal()<fait.getVal()){
 									exist = true;
 								}else{
-									System.out.println("Sous condition que "+f.getElement()+" == "+fait.getVal());
-									exist=true;
+									//System.out.println("Sous condition que "+f.getElement()+" > "+f.getVal());
+									exist=false;
 								}
 							}
 							if(f.getSymbole()=="<"){
@@ -328,6 +330,7 @@ public class Regle implements Comparable{
 							}	
 							break;
 					}
+				}
 			}
 		}
 		return exist;

@@ -56,7 +56,7 @@ public class MoteurInference {
 								}
 							}	
 							for(Fait f : bf.getFaitsInitiaux()){
-								if(f.getElement().equals(consequence.getElement()) && f.getVal()!=consequence.getVal()){
+								if(f.getElement().equals(consequence.getElement()) && f.getVal()!=consequence.getVal() && conflit==false){
 									conflit=true;
 									System.out.println("Conflit entre le fait dans la base de fait: "+f.toString()+" et le fait dans la regle accepté: "+consequence.toString()+" on garde la première valeur de "+f.getElement());
 								}
@@ -235,7 +235,7 @@ public class MoteurInference {
 		System.out.println(str);
 		checkCoherence(bf, br);
 		System.out.println("\n========================= Chainage arriere ===============================\n");
-		chainageArriere(br, but, new BaseFait(),paquet,but);	
+		chainageArriere(br, but, bf,paquet,but);	
 	}
 
 	public static void main(String[] args) throws Exception {
@@ -253,11 +253,11 @@ public class MoteurInference {
 			e.printStackTrace();
 		}
 
-		execChainageAvant(bf,br,true);
+		//execChainageAvant(bf,br,true);
 
-		Fait but = new Fait("muguet", false);
+		Fait but = new Fait("orage", true);
 
-		//execChainageArriere(new BaseFait(),br,but,true);
+		execChainageArriere(new BaseFait(),br,but,true);
 	}
 
 }
