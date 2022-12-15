@@ -238,26 +238,4 @@ public class MoteurInference {
 		chainageArriere(br, but, new BaseFait(),paquet,but);	
 	}
 
-	public static void main(String[] args) throws Exception {
-		
-		BaseFait bf = new BaseFait();
-		try {
-			bf.genererFaitsInitiaux("faitsInit.txt");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		BaseRegle br = new BaseRegle();
-		try {
-			br.generer("regles.txt");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		execChainageAvant(bf,br,true);
-
-		Fait but = new Fait("muguet", false);
-
-		//execChainageArriere(new BaseFait(),br,but,true);
-	}
-
 }

@@ -48,6 +48,7 @@ public class Regle implements Comparable{
 				pr+= " et ";
 			}
 			pr+=consequence.toString();
+			i++;
 		}
 		return pr;
 	}
