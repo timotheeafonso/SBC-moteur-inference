@@ -128,6 +128,7 @@ public class BaseFait {
 	public boolean existFaitInitiaux(Fait fait) {
 		boolean exist=false;
 			for(Fait f : faitsInitiaux) {
+				if(f.getElement().equals(fait.getElement())){
 				if(fait.getVal()==null && f.getVal()==null){
 					if(fait.isEtat()==f.isEtat() && f.getElement().equals(fait.getElement())) {
 						exist=true;
@@ -401,6 +402,7 @@ public class BaseFait {
 							}	
 							break;
 					}
+				}
 			}
 		}
 	return exist;

@@ -1,14 +1,7 @@
-1 phanérograme & graine_nue = sapin
-1 phanérograme & 1-cotylédone = monocotylédone
-0 phanérograme & 2-cotylédone = dicotylédone
-2 monocotylédone & rhizome = muguet
-1 dicotylédone = anémone
-3 monocotylédone & ~rhizome = lilas
-3 feuille & fleur = cryptogame
-3 cryptogame & ~racine = mousse
-2 cryptogame & racine = fougère
-2 ~feuille & plante = thallophyte
-0 fleur & graine = phanérograme
-0 thallophyte & chlorophylle = algue
-0 thallophyte & ~chlorophylle = champignon
-1 ~feuille & ~fleur & ~plante = colibacille
+3 temparature>35 = canicule
+1 canicule & pluie==0 = secheresse & nuage==0
+3 pluie>30 & vent>=89 = tempete & nuage>15
+2 tempete & orage = ouragan
+3 pluie==5 & soleil = arc-en-ciel
+3 pluie!=0 & temparature<0 = neige>0
+1 temparature>25 & pluie>20 & nuage>5 = orage

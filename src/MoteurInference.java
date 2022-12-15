@@ -236,7 +236,7 @@ public class MoteurInference {
 
 		execChainageAvant(bf,br,true);
 
-		Fait but = new Fait("muguet", true);
+		Fait but = new Fait("muguet", false);
 
 		//execChainageArriere(new BaseFait(),br,but,true);
 	}

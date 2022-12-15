@@ -1,1 +1,1 @@
-graine & fleur & phanérograme & graine_nue
+temparature==30 & pluie==35 & vent==100
