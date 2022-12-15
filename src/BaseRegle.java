@@ -117,6 +117,11 @@ public class BaseRegle {
 					int valeur = Integer.parseInt((cs.split("=="))[1]);
 					f = new Fait(element, valeur, "==");
 				}
+				else if(cs.contains("!=")){
+					String element = (cs.split("!="))[0];
+					int valeur = Integer.parseInt((cs.split("!="))[1]);
+					f = new Fait(element, valeur, "!=");
+				}
 				else {
 		    		f = new Fait(cs,true);
 		    	}
