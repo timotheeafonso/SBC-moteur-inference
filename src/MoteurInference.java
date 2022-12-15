@@ -13,7 +13,7 @@ public class MoteurInference {
 		int nbInf = 0;
 		boolean inf = true;
 		
-		System.out.println("\n========================= Chainage avant ===============================\n");
+		System.out.println("========================= Chainage avant ===============================\n");
 		while(inf) {
 			inf=false;
 			for(Regle r : br.getRegles()) {
@@ -55,8 +55,16 @@ public class MoteurInference {
 									}
 								}
 							}	
-							if(!conflit)
-							bf.ajouterFaitInitiaux(consequence);
+							for(Fait f : bf.getFaitsInitiaux()){
+								if(f.getElement().equals(consequence.getElement()) && f.getVal()!=consequence.getVal()){
+									conflit=true;
+									System.out.println("Conflit entre le fait dans la base de fait: "+f.toString()+" et le fait dans la regle accepté: "+consequence.toString()+" on garde la première valeur de "+f.getElement());
+								}
+							}
+							if(!conflit){
+								bf.ajouterFaitInitiaux(consequence);
+							}
+
 							inf=true;
 							nbInf++;
 							explication.add(r);
@@ -78,40 +86,51 @@ public class MoteurInference {
 
 	public static boolean chainageArriere(BaseRegle br, Fait but, BaseFait bf , boolean paquet,Fait butInit){
 		System.out.println("On démontre le but : "+but.toString());
-		boolean dem = false;
-		if(paquet){
-			Collections.sort(br.getRegles());
-		}
 		
-		//1er cas
-		if(bf.existFaitInitiaux(but)){
-			dem = true;
-		}
+		boolean dem = false;
+			if(paquet){
+				Collections.sort(br.getRegles());
+			}
+			
+			//1er cas
+			if(bf.existFaitInitiaux(but)){
+				dem = true;
+			}
 
-		//2e cas
-		int i=0;
-		while(dem==false && i<=br.getRegles().size()){
-			i++;
-			for(Regle r : br.getRegles()){
-				if(r.existFait(r.getConsequences(), but)){
-					System.out.println("Regle utilisé: "+r.toString());
-					dem = verif(br, r.getPremisses(), bf,butInit);
+			//2e cas
+			int i=0;
+			while(dem==false && i<=br.getRegles().size()){
+				i++;
+				for(Regle r : br.getRegles()){
+					if(r.existFait(r.getConsequences(), but)){
+						System.out.println("Regle utilisé: "+r.toString());
+						dem = verif(br, r.getPremisses(), bf,butInit);
+					}
 				}
 			}
-		}
 
-		//3e cas
-		if(!dem){
-			for (Regle r : br.getRegles()){
-				if(!r.existFait(r.getConsequences(),but)){
-							dem=true;
+			//3e cas
+			if(!dem){
+				for (Regle r : br.getRegles()){
+					if(!r.existFait(r.getConsequences(),but)){
+								dem=true;
+					}
 				}
 			}
-		}
+			boolean conflit=false;
 
-		if(dem){
-			bf.ajouterFaitInitiaux(but);
-		}
+			for(Fait f : bf.getFaitsInitiaux()){
+				if(f.getElement().equals(but.getElement()) && (f.getVal()!=but.getVal() || f.isEtat() != but.isEtat())){
+					System.out.println("Conflit entre le fait dans la base de fait: "+f.toString()+" et le nouveau but à accepté: "+but.toString()+" on garde la première valeur de "+f.getElement());
+					conflit=true;
+				}
+			}
+			if(!conflit){
+				if(dem){
+					bf.ajouterFaitInitiaux(but);
+				}
+			}
+		
 		if(bf.existFaitInitiaux(butInit)){
 			System.out.println("\n==============================================================");
 			System.out.println(bf.toString());
