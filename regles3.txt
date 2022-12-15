@@ -1,0 +1,8 @@
+3 temparature>35 = canicule & temparature==2
+2 canicule = temperature<2
+1 canicule & pluie==0 = secheresse & nuage==0
+3 pluie>30 & vent>=89 = tempete & nuage>15
+2 tempete & orage = ouragan
+3 pluie==5 & soleil = arc-en-ciel
+3 pluie!=0 & temparature<0 = neige>0
+1 temparature>25 & pluie>20 & nuage>5 = orage
