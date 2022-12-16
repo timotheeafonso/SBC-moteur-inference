@@ -155,20 +155,10 @@ public class Regle implements Comparable{
 							break;
 						case "==":		
 							if(f.getSymbole()==">"){
-								if(exist=f.getVal()<fait.getVal()){
-									exist = true;
-								}else{
-									//System.out.println("Sous condition que "+f.getElement()+" > "+f.getVal());
-									exist=false;
-								}
+								exist = f.getVal()<fait.getVal();
 							}
 							if(f.getSymbole()=="<"){
-								if(exist=f.getVal()>fait.getVal()){
-									exist = true;
-								}else{
-									System.out.println("Sous condition que "+f.getElement()+" == "+fait.getVal());
-									exist=true;
-								}
+								exist=f.getVal()>fait.getVal();
 							}	
 							if(f.getSymbole()=="=="){
 								exist=f.getVal()==fait.getVal();
@@ -177,20 +167,10 @@ public class Regle implements Comparable{
 								exist=f.getVal()!=fait.getVal();
 							}		
 							if(f.getSymbole()==">="){
-								if(exist=f.getVal()<=fait.getVal()){
-									exist = true;
-								}else{
-									System.out.println("Sous condition que "+f.getElement()+" == "+fait.getVal());
-									exist=true;
-								}
+								exist=f.getVal()<=fait.getVal();
 							}						
 							if(f.getSymbole()=="<="){
-								if(exist=f.getVal()>=fait.getVal()){
-									exist = true;
-								}else{
-									System.out.println("Sous condition que "+f.getElement()+" == "+fait.getVal());
-									exist=true;
-								}
+								exist=f.getVal()>=fait.getVal();
 							}	
 							break;
 						case "<=":

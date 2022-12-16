@@ -225,22 +225,12 @@ public class BaseFait {
 								}
 							}	
 							break;
-						case "==":		
+						case "==":			
 							if(f.getSymbole()==">"){
-								if(exist=f.getVal()<fait.getVal()){
-									exist = true;
-								}else{
-									System.out.println("Sous condition que "+f.getElement()+" == "+fait.getVal());
-									exist=true;
-								}
+								exist = f.getVal()<fait.getVal();
 							}
 							if(f.getSymbole()=="<"){
-								if(exist=f.getVal()>fait.getVal()){
-									exist = true;
-								}else{
-									System.out.println("Sous condition que "+f.getElement()+" == "+fait.getVal());
-									exist=true;
-								}
+								exist=f.getVal()>fait.getVal();
 							}	
 							if(f.getSymbole()=="=="){
 								exist=f.getVal()==fait.getVal();
@@ -249,22 +239,12 @@ public class BaseFait {
 								exist=f.getVal()!=fait.getVal();
 							}		
 							if(f.getSymbole()==">="){
-								if(exist=f.getVal()<=fait.getVal()){
-									exist = true;
-								}else{
-									System.out.println("Sous condition que "+f.getElement()+" == "+fait.getVal());
-									exist=true;
-								}
+								exist=f.getVal()<=fait.getVal();
 							}						
 							if(f.getSymbole()=="<="){
-								if(exist=f.getVal()>=fait.getVal()){
-									exist = true;
-								}else{
-									System.out.println("Sous condition que "+f.getElement()+" == "+fait.getVal());
-									exist=true;
-								}
+								exist=f.getVal()>=fait.getVal();
 							}	
-							break;
+						break;
 						case "<=":
 							if(f.getSymbole()==">"){
 								if(f.getVal()>fait.getVal()){
