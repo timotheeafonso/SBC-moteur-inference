@@ -16,7 +16,7 @@ public class TestChainageAvant {
 			e.printStackTrace();
 		}
 
-        
+        MoteurInference.execChainageAvant(bf, br, false);
 
 	}
 
