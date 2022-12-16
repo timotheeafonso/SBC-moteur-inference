@@ -16,7 +16,7 @@ public class TestPaquet {
             e.printStackTrace();
         }
 
-        MoteurInference.execChainageAvant(bf, br, true);
+        MoteurInference.execChainageAvant(bf, br, false);
 
     }
 

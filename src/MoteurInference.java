@@ -12,11 +12,12 @@ public class MoteurInference {
 
 		int nbInf = 0;
 		boolean inf = true;
-		
+
 		System.out.println("========================= Chainage avant ===============================\n");
 		while(inf) {
 			inf=false;
 			for(Regle r : br.getRegles()) {
+				int tailleCons=0;
 				boolean regleSupprimer=false;
 				for(Regle re : explication) {
 					if(re.equals(r)) {
@@ -32,8 +33,9 @@ public class MoteurInference {
 						}
 					}			
 					if(dec) {
+						System.out.println("Regle apliquable: "+r.toString());
 						for(Fait consequence : r.getConsequences()) {
-							System.out.println("Regle apliquable: "+r.toString());
+							tailleCons++;
 							boolean conflit=false;
 							// Gestion conflit
 							for(Regle rexplique : explication){
@@ -64,10 +66,13 @@ public class MoteurInference {
 							if(!conflit){
 								bf.ajouterFaitInitiaux(consequence);
 							}
-
+							
 							inf=true;
 							nbInf++;
-							explication.add(r);
+							if(tailleCons==r.getConsequences().size()){
+								explication.add(r);
+								tailleCons=0;
+							}
 						}
 					}
 				}
@@ -211,7 +216,7 @@ public class MoteurInference {
 		}
 		uniqueFaitsCheck = new HashSet<String>(faitsCheck);
 		for(String s : uniqueFaitsCheck){
-			System.out.println("erreur: incohérence dans la base de fait\nfait "+s+" insérer plusieurs fois");
+			System.out.println("erreur: incohérence dans la base de fait\nfait "+s+" insérer plusieurs fois avec une valeur différente");
 		}
 		faitsCheck.clear();
 
