@@ -203,7 +203,7 @@ public class MoteurInference {
 
 		for(Fait f : bf.getFaitsInitiaux()){
 			for(Fait f2 : bf.getFaitsInitiaux()){
-				if(f.getElement().equals(f2.getElement()) && ((f.getVal()==null && f2.getVal()!=null)||(f.getVal()!=null && f2.getVal()==null))){
+				if(f.getElement().equals(f2.getElement()) && ((f.getVal()==null && f2.getVal()!=null)||(f.getVal()!=null && f2.getVal()==null) ||(f.getVal()!=f2.getVal()))){
 					faitsCheck.add(f.getElement());
 					coherencebf=false;
 				}
@@ -236,6 +236,28 @@ public class MoteurInference {
 		checkCoherence(bf, br);
 		System.out.println("\n========================= Chainage arriere ===============================\n");
 		chainageArriere(br, but, bf,paquet,but);	
+	}
+
+	public static void main(String[] args) throws Exception {
+		
+		BaseFait bf = new BaseFait();
+		try {
+			bf.genererFaitsInitiaux("faitsInit2.txt");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		BaseRegle br = new BaseRegle();
+		try {
+			br.generer("regles2.txt");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		execChainageAvant(bf,br,true);
+
+		Fait but = new Fait("orage", true);
+
+		//execChainageArriere(new BaseFait(),br,but,true);
 	}
 
 }
